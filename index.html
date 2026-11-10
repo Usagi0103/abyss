@@ -11,11 +11,6 @@
 		<script src="js/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<!-- 背景音乐 -->
-		<audio id="GameBGAudio" loop preload="auto">
-			<source src="audio/game_music.ogg" type="audio/ogg">
-			<source src="audio/game_music.mp3" type="audio/mpeg">
-		</audio>
 		<!-- 绘制场景盒子 -->
 		<div class="GameBoxBg">
 			<!-- <img class="d" id="newImg" src="" /> -->
@@ -27,9 +22,6 @@
 						<span class="scoreTitle"><strong>得分: </strong></span>
 						<strong><span class="scoreNum"> 0</span></strong>
 					</div>
-					<div class="ctBox">
-						<p>余额：<span id="ct"></span> CT</p>
-					</div>
 					<div class="lolgBox">
 						<img src="image/打灰太狼.png">
 					</div>
@@ -37,27 +29,19 @@
 				<div class="listBOx">
 					<!-- 分数盒子 -->
 					<div class="timeBox">
-						<strong><span class="timeNum">30</span> 秒</strong>
+						<strong><span class="timeNum">60</span> 秒</strong>
 					</div>
 				</div>
 			</div>
-			<!-- 右侧功能插件控件 -->
-			<div class="controlsBox">
-				<ul>
-					<!-- 背景音乐按钮 -->
-					<li class="musicBox">
-						<button type="button" id="musicBtn" class=""></button>
-					</li>
-					<li class="rankingBox">
-						<button type="button" class="btn_ranking" data-toggle="modal" data-target="#Gamelist"></button>
-						<p>榜单</p>
-					</li>
-				</ul>
-			</div>
 			<div class="startBox">
+				<div class="difficulty-selector">
+					<button class="difficulty-btn" data-level="1">简单</button>
+					<button class="difficulty-btn active" data-level="2">中等</button>
+					<button class="difficulty-btn" data-level="3">困难</button>
+				</div>
 				<button class="start">开始游戏</button>
-				<button type="button" class="btn_rules" data-toggle="modal" data-target="#exampleModalScrollable">
-					游戏规则
+				<button type="button" class="btn_experiment_info" data-toggle="modal" data-target="#exampleModalScrollable">
+					实验说明
 				</button>
 			</div>
 
@@ -69,10 +53,10 @@
 						</span></p>
 				</div>
 				<button class="restart">重新开始</button>
-				<button type="button" class="btn_rules" data-toggle="modal" data-target="#exampleModalScrollable">
-					游戏规则
-				</button>
 			</div>
+
+			<!-- 实验数据标识 - 用于脑电波同步 -->
+			<div id="eeg_trial_id" style="display:none;" data-trial="0"></div>
 
 		</div>
 
@@ -83,82 +67,13 @@
 			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5>游戏规则</h5>
+						<h5>实验说明</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						<ul>
-							<li>1、游戏每局消耗50CT。</li>
-							<li>2、每周会把玩家在游戏中消耗的90%的CT，放到奖金池。
-								<ul>
-									以下是前十名获得的奖池比例：
-									<li>第一名—30%</li>
-									<li>第二名—18%</li>
-									<li>第三名—12%</li>
-									<li>第四名—10%</li>
-									<li>第五名—8%</li>
-									<li>第六名—6%</li>
-									<li>第七名—5%</li>
-									<li>第八名—4%</li>
-									<li>第九名—4%</li>
-									<li>第十名—3%</li>
-									当周的奖励会在下周二22点前发放。
-								</ul>
-							</li>
-							<li>3、游戏时间:30s；拼手速,打到大灰狼+10分；
-								打到小灰灰-10分</li>
-						</ul>
-
-					</div>
-
-				</div>
-			</div>
-		</div>
-		<!-- 榜单弹窗 -->
-		<!-- Modal -->
-		<div class="modal fade gameRules" id="Gamelist" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle"
-		 aria-hidden="true">
-			<div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5>当周排行榜</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<table class="table">
-							<thead class="table-light">
-								<tr>
-									<th scope="col">排名</th>
-									<th scope="col">账户</th>
-									<th scope="col">分数</th>
-									
-								</tr>
-							</thead>
-							<tbody id="tbodyBox">
-								<tr>
-									<th scope="row">1</th>
-									<td>Mark</td>
-									<td>Otto</td>
-									
-								</tr>
-								<tr>
-									<th scope="row">2</th>
-									<td>Jacob</td>
-									<td>Thornton</td>
-									
-								</tr>
-								<tr>
-									<th scope="row">3</th>
-									<td>Larry</td>
-									<td>the Bird</td>
-									
-								</tr>
-							</tbody>
-						</table>
+						<p>实验说明内容将由主试人员口头宣读。</p>
 					</div>
 
 				</div>
@@ -167,5 +82,8 @@
 
 		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/mian.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 移动端错误提示 -->
+	<div id="mobile-error-display" style="display:none; position:fixed; top:0; left:0; width:100%; background:red; color:white; padding:10px; z-index:99999; font-size:12px; word-break:break-all;"></div>
+
 	</body>
 </html>
